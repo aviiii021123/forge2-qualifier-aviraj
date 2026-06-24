@@ -1,0 +1,18 @@
+const express = require('express');
+const { SlackChannel } = require('@openclaw/slack');
+
+const app = express();
+app.use(express.json());
+
+// Base health check endpoint for the Forge evaluation node
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy', system: 'OpenClaw Agent Backend' });
+});
+
+// Port handling matching the standard OpenClaw gateway profile
+const PORT = process.env.PORT || 19001;
+app.listen(PORT, () => {
+  console.log(`🦞 OpenClaw Backend Agent running on port ${PORT}`);
+});
+
+module.exports = app;
